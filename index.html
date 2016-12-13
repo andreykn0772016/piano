@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano</title>
+    <script type="text/javascript" src="js/paper-full.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.29/howler.js"></script>
+    <link rel="stylesheet" href="css/circles.css">
+    <script type="text/paperscript" canvas="myCanvas">
+
+    var keyData = {
+    a:{
+    color: 'purple',
+sound: new Howl({
+  urls: ['music/A/bubbles.mp3']
+})
+    },
+	s:{
+	color: 'orange',
+	sound: new Howl({
+  urls: ['music/A/clay.mp3']
+})
+},
+		d:{
+	color: 'green',
+	sound: new Howl({
+  urls: ['music/A/confetti.mp3']
+})
+},
+    f:{
+    color: 'RGB(7, 202, 223)',
+sound: new Howl({
+  urls: ['music/A/corona.mp3']
+})
+    },
+	g:{
+	color: 'RGB(70, 189, 66) ',
+	sound: new Howl({
+  urls: ['music/A/dotted-spiral.mp3']
+})
+},
+		h:{
+	color: 'RGB(153, 78, 72)',
+	sound: new Howl({
+  urls: ['music/A/glimmer.mp3']
+})
+},
+    q:{
+    color: 'RGB(218, 198, 240)',
+sound: new Howl({
+  urls: ['music/A/moon.mp3']
+})
+    },
+	w:{
+	color: 'RGB(146, 17, 62)',
+	sound: new Howl({
+  urls: ['music/A/pinwheel.mp3']
+})
+},
+		e:{
+	color: 'RGB(253, 231, 0)',
+	sound: new Howl({
+  urls: ['music/A/timer.mp3']
+})
+}
+
+    }
+
+
+
+
+    var circles = [];
+function onKeyDown(event) {
+if(keyData[event.key]){
+	var maxPoint = new Point (view.size.width, view.size.height);
+	var randomPoint = Point.random();
+	var point = maxPoint * randomPoint;
+	var newCircle = new Path.Circle(point, 500)
+	newCircle.fillColor = keyData[event.key].color;
+	keyData[event.key].sound.play();
+
+
+	circles.push (newCircle);
+};
+}
+<!--var animateCircle = new Path.Circle(new Point(300, 300), 100);-->
+<!--animateCircle.fillColor = 'red';-->
+
+function onFrame(event) {
+	for(var i=0; i < circles.length; i++){
+	circles[i].fillColor.hue += 1;
+	circles[i].scale(.9);
+	};
+
+	<!--animateCircle.fillColor.hue += 1;-->
+	<!---->
+}
+<!--document.querySelector('div').addEventListener('click');-->
+
+
+
+
+</script>
+</head>
+<body>
+<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
